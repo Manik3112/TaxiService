@@ -1,4 +1,7 @@
-var mysql      = require('mysql');
+/*
+* Author : Manik Rastogi
+*/
+var mysql = require('mysql');
 const util = require('util');
 var connection = mysql.createConnection({
     host     : 'localhost',

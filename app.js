@@ -1,7 +1,5 @@
 /*
 * Author : Manik Rastogi
-* Routing
-* Middlewares
 */
 global.Promise = require("bluebird")
 const express = require('express')
