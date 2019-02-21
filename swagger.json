@@ -1,0 +1,132 @@
+{
+   "swagger":"2.0",
+   "info":{
+      "version":"1.0.0",
+      "description":"Car Rental System",
+      "title":"Car Rental System"
+   },
+   "host":"127.0.0.1:8081",
+   "basePath":"/",
+   "schemes":[
+      "http"
+   ],
+   "paths":{
+      "/user/register":{
+         "post":{
+            "description":"User Login",
+            "parameters":[
+               {
+                  "type":"string",
+                  "description":"Email of user",
+                  "name":"email",
+                  "in":"formData",
+                  "example":"xx@xx.xx"
+               },
+               {
+                  "type":"string",
+                  "description":"Password",
+                  "name":"pass",
+                  "in":"formData",
+                  "example":"as13"
+               },
+               {
+                  "type":"string",
+                  "description":"Full Name",
+                  "name":"name",
+                  "in":"formData",
+                  "example":"Manik"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"successfully signed up."
+               }
+            }
+         }
+      },
+      "/user/login":{
+         "post":{
+            "description":"User Login",
+            "parameters":[
+               {
+                  "type":"string",
+                  "description":"Email of user",
+                  "name":"email",
+                  "in":"formData",
+                  "example":"xx@xx.xx"
+               },
+               {
+                  "type":"string",
+                  "description":"Password",
+                  "name":"pass",
+                  "in":"formData",
+                  "example":"as13"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"successfully Logged in."
+               }
+            }
+         }
+      },
+      "/user/getVehicle":{
+         "get":{
+            "description":"See Vehicle",
+            "responses":{
+               "200":{
+                  "description":"Vehicle"
+               }
+            }
+         }
+      },
+      "/user/getVehicle/:id":{
+         "put":{
+            "description":"User Login",
+            "parameters":[
+               {
+                  "type":"numeric",
+                  "description":"Car Id",
+                  "name":"id",
+                  "in":"formData",
+                  "example":"xx@xx.xx"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"successfully signed up."
+               }
+            }
+         }
+      },
+      "/user/returnVehicle/":{
+         "put":{
+            "description":"Return a Alloted Vehicle",
+            "responses":{
+               "200":{
+                  "description":"successfully signed up."
+               }
+            }
+         }
+      },
+      "/manager/join/":{
+         "post":{
+            "description":"Return a Alloted Vehicle",
+            "parameters":[
+               {
+                  "type":"string",
+                  "description":"Token",
+                  "name":"token",
+                  "in":"formData",
+                  "example":""
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Show All Bookings"
+               }
+            }
+         }
+      }
+   }
+}

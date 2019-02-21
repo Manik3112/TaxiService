@@ -1,0 +1,23 @@
+{
+  "name": "Taxi-Pool",
+  "version": "1.0.0",
+  "description": "Taxi Booking App",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Manik Rastogi",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.1",
+    "await-fs": "^1.0.0",
+    "bluebird": "^3.5.3",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.4.0",
+    "mongodb": "^3.1.13",
+    "mysql": "^2.16.0",
+    "swagger-ui-express": "^4.0.2"
+  }
+}
