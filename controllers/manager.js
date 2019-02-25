@@ -42,7 +42,10 @@ let showFreeDriver = (req, res) => {
 * For Showing All Driver
 */
 let showDriver = (req, res) => {
-	bookData.showDriver(res)
+	bookData.showDriver(0,res)
+}
+let showLiveDriver = (req, res) => {
+	bookData.showDriver(1,res)
 }
 /*
 * For Assigning a Driver to Booking
@@ -50,5 +53,7 @@ let showDriver = (req, res) => {
 let asignDriver = (req, res) => {
 	bookData.asignDriver(req.params.bookingId, req.params.driverId, res, req.tokenEmail)
 }
-
-module.exports = { managerLogin, showBooking, showFreeDriver, processBooking, showDriver, asignDriver, pastBooking }
+let bookingExist = (req, res, next) => {
+	bookData.bookingExist(req.params.bookingId , res, next)
+}
+module.exports = { managerLogin, showBooking, showFreeDriver, processBooking, showDriver, asignDriver, pastBooking, bookingExist, showLiveDriver }

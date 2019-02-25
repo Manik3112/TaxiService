@@ -42,5 +42,10 @@ let booking = (req, res) => {
 let complete = (req, res) => {
     bookData.completeRide(req.driverId, res, req.tokenEmail)
 }
-
-module.exports = { driverLogin, driverRegister, driverLogout, booking, complete }
+let isOnline = (req, res, next) => {
+    driverData.isOnline(req.params.driverId, res, next)
+}
+let isRegister = (req, res, next) => {
+    driverData.isRegister(req.body.email, res, next)
+}
+module.exports = { driverLogin, driverRegister, driverLogout, booking, complete, isOnline, isRegister }

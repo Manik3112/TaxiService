@@ -58,4 +58,35 @@ exports.driverStatus = Promise.coroutine(function* (status,driverId ,res) {
         })
     }
 })
-
+exports.isOnline = Promise.coroutine(function* (driverId, res, next) {
+    try{
+        let sql = `SELECT status from driver WHERE driver_id = '${driverId}' AND status = 1`
+        let rows = yield runQuery(sql)
+        if(rows.length === 0){
+            throw {message:"Driver is Not Online"}
+        }
+        next()
+    } catch (err) {
+        res.status(400).json({
+            "status" : "400",
+            "msg" : err.message
+        })
+    }
+})
+exports.isRegister = Promise.coroutine(function* (email, res, next){
+    try{
+        let sql = `SELECT email from driver WHERE email = '${email}'`
+        let rows = yield runQuery(sql)
+        if(rows.length === 0){
+            next()
+        }
+        else{
+            throw {message:"User Already Exist"}
+        }
+    } catch (err){
+        res.status(400).json({
+            "status" : "400",
+            "msg" : err.message
+        })
+    }
+})

@@ -2,128 +2,243 @@
    "swagger":"2.0",
    "info":{
       "version":"1.0.0",
-      "description":"Car Rental System",
-      "title":"Car Rental System"
+      "description":"Taxi Booking Management System",
+      "title":"Taxi Booking"
    },
    "host":"127.0.0.1:8081",
    "basePath":"/",
    "schemes":[
-      "http"
+      "http","https"
    ],
    "paths":{
-      "/user/register":{
+      "/driver/register":{
          "post":{
-            "description":"User Login",
+            "description":"Driver Registeration API",
+             "tags":["Driver"],
             "parameters":[
                {
                   "type":"string",
-                  "description":"Email of user",
-                  "name":"email",
-                  "in":"formData",
-                  "example":"xx@xx.xx"
-               },
-               {
-                  "type":"string",
-                  "description":"Password",
-                  "name":"pass",
-                  "in":"formData",
-                  "example":"as13"
-               },
-               {
-                  "type":"string",
-                  "description":"Full Name",
+                  "description":"Name of the Driver",
                   "name":"name",
                   "in":"formData",
-                  "example":"Manik"
+                  "example":"Shubham Negi"
+               },
+               {
+                  "type":"string",
+                  "description":"Password for the Driver",
+                  "name":"pass",
+                  "in":"formData",
+                  "example":"s123"
+               },
+               {
+                  "type":"email",
+                  "description":"Email of the Driver",
+                  "name":"email",
+                  "in":"formData",
+                  "example":"shubham@gmail.com"
+               },
+               {
+                  "type":"string",
+                  "description":"Car Name",
+                  "name":"car_name",
+                  "in":"formData",
+                  "example":"Tata Indigo"
+               },
+               {
+                  "type":"string",
+                  "description":"Car Name",
+                  "name":"car_number",
+                  "in":"formData",
+                  "example":"UK 07 P 1234"
                }
             ],
             "responses":{
                "200":{
-                  "description":"successfully signed up."
+                  "description":"Success Register"
+               }
+            }
+         }
+      },
+      "/driver/login":{
+         "post":{
+            "description":"Driver Login API",
+            "tags":["Driver"],
+            "parameters":[
+               {
+                  "type":"string",
+                  "description":"Email of the Driver",
+                  "name":"email",
+                  "in":"formData",
+                  "example":"shubham@gmail.com"
+               },
+               {
+                  "type":"string",
+                  "description":"Password of the Driver",
+                  "name":"pass",
+                  "in":"formData",
+                  "example":"s123"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success Login"
+               }
+            }
+         }
+      },
+      "/driver/booking":{
+         "get":{
+            "description":"Driver Show Booking API",
+            "tags":["Driver"],
+            "responses":{
+               "200":{
+                  "description":"Show Current Bookings"
+               }
+            }
+         }
+      },
+      "/driver/complete":{
+         "delete":{
+            "description":"Driver Complete Booking API",
+            "tags":["Driver"],
+            "responses":{
+               "200":{
+                  "description":"Complete Current Bookings"
+               }
+            }
+         }
+      },
+      "/driver/logout":{
+         "delete":{
+            "description":"Driver Logout API",
+            "tags":["Driver"],
+            "responses":{
+               "200":{
+                  "description":"Success Logout"
+               }
+            }
+         }
+      },
+      "/user/register":{
+         "post":{
+            "description":"User Register API",
+            "tags":["User"],
+            "parameters":[
+               {
+                  "type":"string",
+                  "description":"Email of the User",
+                  "name":"email",
+                  "in":"formData",
+                  "example":"manik@gmail.com"
+               },
+               {
+                  "type":"string",
+                  "description":"Name of the User",
+                  "name":"name",
+                  "in":"formData",
+                  "example":"Manik Rastogi"
+               },
+               {
+                  "type":"string",
+                  "description":"Password for the User",
+                  "name":"pass",
+                  "in":"formData",
+                  "example":"m123"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success Logout"
                }
             }
          }
       },
       "/user/login":{
          "post":{
-            "description":"User Login",
+            "description":"User Login API",
+            "tags":["User"],
             "parameters":[
                {
                   "type":"string",
-                  "description":"Email of user",
+                  "description":"Email of the User",
                   "name":"email",
                   "in":"formData",
-                  "example":"xx@xx.xx"
+                  "example":"manik@gmail.com"
                },
                {
                   "type":"string",
-                  "description":"Password",
+                  "description":"Password for the User",
                   "name":"pass",
                   "in":"formData",
-                  "example":"as13"
+                  "example":"m123"
                }
             ],
             "responses":{
                "200":{
-                  "description":"successfully Logged in."
+                  "description":"Success Logout"
                }
             }
          }
       },
-      "/user/getVehicle":{
-         "get":{
-            "description":"See Vehicle",
-            "responses":{
-               "200":{
-                  "description":"Vehicle"
-               }
-            }
-         }
-      },
-      "/user/getVehicle/:id":{
-         "put":{
-            "description":"User Login",
-            "parameters":[
-               {
-                  "type":"numeric",
-                  "description":"Car Id",
-                  "name":"id",
-                  "in":"formData",
-                  "example":"xx@xx.xx"
-               }
-            ],
-            "responses":{
-               "200":{
-                  "description":"successfully signed up."
-               }
-            }
-         }
-      },
-      "/user/returnVehicle/":{
-         "put":{
-            "description":"Return a Alloted Vehicle",
-            "responses":{
-               "200":{
-                  "description":"successfully signed up."
-               }
-            }
-         }
-      },
-      "/manager/join/":{
+      "/user/createBooking":{
          "post":{
-            "description":"Return a Alloted Vehicle",
+            "description":"User Login API",
+            "tags":["User"],
             "parameters":[
                {
-                  "type":"string",
-                  "description":"Token",
-                  "name":"token",
+                  "type":"number",
+                  "description":"From Location Latitude",
+                  "name":"from_lat",
                   "in":"formData",
-                  "example":""
+                  "example":"12.1234"
+               },
+               {
+                  "type":"number",
+                  "description":"From Location Longitude",
+                  "name":"from_long",
+                  "in":"formData",
+                  "example":"12.1234"
+               },
+               {
+                  "type":"number",
+                  "description":"To Location Latitude",
+                  "name":"to_lat",
+                  "in":"formData",
+                  "example":"12.1234"
+               },
+               {
+                  "type":"number",
+                  "description":"To Location Longitude",
+                  "name":"to_long",
+                  "in":"formData",
+                  "example":"12.1234"
                }
             ],
             "responses":{
                "200":{
-                  "description":"Show All Bookings"
+                  "description":"Success Logout"
+               }
+            }
+         }
+      },
+      "/user/booking":{
+         "delete":{
+            "description":"Return Users Bookings API",
+            "tags":["User"],
+            "responses":{
+               "200":{
+                  "description":"User's Booking"
+               }
+            }
+         }
+      },
+      "/user/bookingHistory":{
+         "delete":{
+            "description":"Return Users Bookings API",
+            "tags":["User"],
+            "responses":{
+               "200":{
+                  "description":"User's Booking"
                }
             }
          }

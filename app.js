@@ -29,22 +29,23 @@ app.use('/driver', driverRoutes)
 
 // Manager Routes
 managerRoutes.post('/login', Validate.vManagerUser, Validate.authManager, Manager.managerLogin) //{email,pass}
-managerRoutes.get('/booking', /*Validate.managerToken,*/ Manager.showBooking) //{email,pass}
-managerRoutes.get('/booking/:bookingId', /*Validate.managerToken,*/ Manager.showFreeDriver) //{email,pass}
-managerRoutes.put('/booking/:bookingId/:driverId', /*Validate.managerToken,*/ Manager.asignDriver) //{email,pass}
-managerRoutes.get('/process', /*Validate.managerToken,*/ Manager.processBooking) //{email,pass}
-managerRoutes.get('/driver', /*Validate.managerToken,*/ Manager.showDriver) //{email,pass}
-managerRoutes.get('/pastBooking', /*Validate.managerToken,*/ Manager.pastBooking) //{email,pass}
+managerRoutes.get('/booking', Validate.managerToken, Manager.showBooking) //{email,pass}
+managerRoutes.get('/booking/:bookingId', Validate.managerToken, Manager.bookingExist, Manager.showFreeDriver) //{email,pass}
+managerRoutes.put('/booking/:bookingId/:driverId', Validate.managerToken, Manager.bookingExist, Driver.isOnline, Manager.asignDriver) //{email,pass}
+managerRoutes.get('/process', Validate.managerToken, Manager.processBooking) //{email,pass}
+managerRoutes.get('/driver', Validate.managerToken, Manager.showDriver) //{email,pass}
+managerRoutes.get('/liveDriver', Validate.managerToken, Manager.showLiveDriver) //{email,pass}
+managerRoutes.get('/pastBooking', Validate.managerToken, Manager.pastBooking) //{email,pass}
 
 // User Routes
-userRoutes.post('/register', Validate.vRegisterUser, User.userRegister)	//{email,name,pass}
+userRoutes.post('/register', Validate.vRegisterUser, User.isRegister, User.userRegister)	//{email,name,pass}
 userRoutes.post('/login', Validate.vLoginUser, Validate.authLogin, User.userLogin) //{email,pass}
 userRoutes.post('/createBooking', Validate.userToken, User.createBooking) //{fromLat, fromLong, toLat, toLong}
 userRoutes.get('/booking', Validate.userToken, User.showBooking)
 userRoutes.get('/bookingHistory', Validate.userToken, User.bookingHistory)
 
 // Driver Routes
-driverRoutes.post('/register', Validate.vRegisterDriver, Driver.driverRegister)	//{email,name,pass,car_name,car_number}
+driverRoutes.post('/register', Validate.vRegisterDriver, Driver.isRegister, Driver.driverRegister)	//{email,name,pass,car_name,car_number}
 driverRoutes.post('/login', Validate.vLoginDriver, Validate.authDriver, Driver.driverLogin) //{email,pass}
 driverRoutes.get('/booking', Validate.driverToken, Driver.booking)
 driverRoutes.delete('/complete', Validate.driverToken, Driver.complete)

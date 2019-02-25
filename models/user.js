@@ -43,3 +43,20 @@ exports.getUser = (email,pass) => {
 
     })
 }
+exports.isRegister = Promise.coroutine(function* (email, res, next){
+    try{
+        let sql = `SELECT email from user WHERE email = '${email}'`
+        let rows = yield runQuery(sql)
+        if(rows.length === 0){
+            next()
+        }
+        else{
+            throw {message:"User Already Exist"}
+        }
+    } catch (err){
+        res.status(400).json({
+            "status" : "400",
+            "msg" : err.message
+        })
+    }
+})

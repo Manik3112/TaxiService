@@ -52,5 +52,7 @@ let showBooking = (req, res) => {
 let bookingHistory = (req, res) => {
 	bookData.userPastBooking(req.tokenUserId,res)
 }
-
-module.exports = { userLogin, userRegister, createBooking, showBooking, bookingHistory }
+let isRegister = (req, res, next) => {
+    userData.isRegister(req.body.email, res, next)
+}
+module.exports = { userLogin, userRegister, createBooking, showBooking, bookingHistory, isRegister }

@@ -22,7 +22,7 @@ exports.vRegisterUser = (req, res, next) => {
 	const schema = Joi.object().keys({
         name: Joi.string().required(),
         email: Joi.string().email().required(),
-        pass: Joi.string().required()
+        pass: Joi.string().regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,}$/).required()
     });
     Joi.validate(req.body, schema, async (err,result) => {
     	if(err){
