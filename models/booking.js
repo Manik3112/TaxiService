@@ -99,10 +99,10 @@ exports.showDriver = Promise.coroutine(function* (status,res) {
 */
 exports.asignDriver = Promise.coroutine(function* (bookingId, driverId, res, email) {
     try {
+        let sql0 = `UPDATE driver SET status = 2 WHERE driver_id = ${driverId}`
+        let rows0 = yield runQuery(sql0)
         let sql = `UPDATE booking SET status = 1, driver_id = ${driverId} WHERE booking_id = ${bookingId}`
         let rows = yield runQuery(sql)
-        let sql0 = `UPDATE driver SET status = 2 WHERE driver_id = ${driverId}`
-        let rows0 = yield runQuery(sql)
         let time = new Date()
         let log = new managerLogs(email, bookingId, driverId, sql, time)
         if(rows.affectedRows != 0){
@@ -172,20 +172,21 @@ exports.userPastBooking = Promise.coroutine(function* (userId, res) {
 */
 exports.completeRide = Promise.coroutine(function* (driverId, res, email) {
     try {
-        let sql0 = `SELECT booking_id,user_id from booking WHERE status = 2 AND driver_id = ${driverId}`
+        let sql0 = `SELECT booking_id,user_id from booking WHERE status = 1 AND driver_id = ${driverId}`
         let rows0 = yield runQuery(sql0)
+        if(rows0.length === 0) throw {message:"No Current Ride"}
         let sql1 = `UPDATE driver SET status = 1 WHERE driver_id = ${driverId}`
         let rows1 = yield runQuery(sql1)
         let sql = `UPDATE booking SET status = 2 WHERE driver_id = ${driverId} AND status = 1`
         let rows = yield runQuery(sql)
         let time = new Date()
         let log = new driverLogs(email, rows0[0].booking_id, rows0[0].user_id, sql, time)
-        log.addLogs()
-        res.status(200).send({
-            "status":"200",
-            "msg":"OK",
-            "data":"Ride is Completed"
-        })
+            log.addLogs()
+            res.status(200).send({
+                "status":"200",
+                "msg":"OK",
+                "data":"Ride is Completed"
+            })
     } catch (err) {
         console.error(err.message);
         res.status(400).json({

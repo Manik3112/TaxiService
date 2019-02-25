@@ -17,20 +17,23 @@ MongoClient.connect(url, { useNewUrlParser: true }, async function(err, db) {
 class managerLogs{
 	constructor(email, bookingId, driverId, sql, time){
 		this.email = email
-		this.bookingId = bookingId
-		this.driverId = driverId
+		this.bookingId = parseInt(bookingId)
+		this.driverId = parseInt(driverId)
 		this.time = time
 		this.sql = sql
 	}
 	addLogs(){
 		let logData = {
-			email: this.email,
 			booking_id: this.bookingId,
 			driver_id: this.driverId,
-			query: this.sql,
-			time_stamp: this.time
+			data:{
+				email: this.email,
+				message: "Assinged a Driver",
+				query: this.sql,
+				time_stamp: this.time
+			}
 		}
-		conn.collection('manager').insertOne(logData, (err, result)=>{
+		conn.collection('Logs').updateOne({'booking_id':logData.booking_id},{$set:{'driver_id':logData.driver_id},$push :{'data':logData.data}},{upsert : true}, (err, result)=>{
 			if(err) return(err.message)
 			else{
 				console.log("Log Added")
@@ -42,20 +45,23 @@ class managerLogs{
 class driverLogs{
 	constructor(email, bookingId, userId, sql, time){
 		this.email = email
-		this.bookingId = bookingId
-		this.userId = userId
+		this.bookingId = parseInt(bookingId)
+		this.userId = parseInt(userId)
 		this.sql = sql
 		this.time = time
 	}
 	addLogs(){
 		let logData = {
-			email: this.email,
 			booking_id: this.bookingId,
 			user_id: this.userId,
-			query: this.sql,
-			time_stamp: this.time
+			data:{
+				email: this.email,
+				message: "Completed a Booking",
+				query: this.sql,
+				time_stamp: this.time
+			}
 		}
-		conn.collection('driver').insertOne(logData, (err, result)=>{
+		conn.collection('Logs').updateOne({'booking_id':logData.booking_id},{$set:{'user_id':logData.user_id} , $push :{'data':logData.data}},{upsert : true}, (err, result)=>{
 			if(err) return(err.message)
 			else{
 				console.log("Log Added")

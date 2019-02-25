@@ -7,6 +7,19 @@
    },
    "host":"127.0.0.1:8081",
    "basePath":"/",
+   "tags": [
+   {
+      "name": "Driver",
+      "description": "API for Driver in the Project"
+   },
+   {
+      "name": "Manager",
+      "description": "API for Manager in the system" 
+   },
+   {
+      "name": "User",
+      "description": "API for User in the system"
+   }],
    "schemes":[
       "http","https"
    ],
@@ -148,7 +161,7 @@
             ],
             "responses":{
                "200":{
-                  "description":"Success Logout"
+                  "description":"Success Register"
                }
             }
          }
@@ -175,7 +188,7 @@
             ],
             "responses":{
                "200":{
-                  "description":"Success Logout"
+                  "description":"Success Login"
                }
             }
          }
@@ -216,13 +229,24 @@
             ],
             "responses":{
                "200":{
-                  "description":"Success Logout"
+                  "description":"Success Create Booking"
                }
             }
          }
       },
       "/user/booking":{
-         "delete":{
+         "get":{
+            "description":"Return Users Bookings API",
+            "tags":["User"],
+            "responses":{
+               "200":{
+                  "description":"User's Booking"
+               }
+            }
+         }
+      },
+      "/user/booking/{bookingId}":{
+         "get":{
             "description":"Return Users Bookings API",
             "tags":["User"],
             "responses":{
@@ -233,12 +257,83 @@
          }
       },
       "/user/bookingHistory":{
-         "delete":{
+         "get":{
             "description":"Return Users Bookings API",
             "tags":["User"],
             "responses":{
                "200":{
-                  "description":"User's Booking"
+                  "description":"User's Booking History"
+               }
+            }
+         }
+      },
+      "/manager/login":{
+         "post":{
+            "description":"User Login API",
+            "tags":["Manager"],
+            "parameters":[
+               {
+                  "type":"string",
+                  "description":"Email of the Manager",
+                  "name":"email",
+                  "in":"formData",
+                  "example":"akash@gmail.com"
+               },
+               {
+                  "type":"string",
+                  "description":"Password for the Manager",
+                  "name":"pass",
+                  "in":"formData",
+                  "example":"a123"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"Success Login"
+               }
+            }
+         }
+      },
+      "/manager/process":{
+         "get":{
+            "description":"Booking in Process API",
+            "tags":["Manager"],
+            "responses":{
+               "200":{
+                  "description":"Current Process Booking"
+               }
+            }
+         }
+      },
+      "/manager/driver":{
+         "get":{
+            "description":"All Drivers API",
+            "tags":["Manager"],
+            "responses":{
+               "200":{
+                  "description":"All Drivers"
+               }
+            }
+         }
+      },
+      "/manager/liveDriver":{
+         "get":{
+            "description":"Live Drivers API",
+            "tags":["Manager"],
+            "responses":{
+               "200":{
+                  "description":"All Live Drivers"
+               }
+            }
+         }
+      },
+      "/manager/pastBooking":{
+         "get":{
+            "description":"All Past Booking API",
+            "tags":["Manager"],
+            "responses":{
+               "200":{
+                  "description":"All Past Booking"
                }
             }
          }
