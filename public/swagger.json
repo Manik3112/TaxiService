@@ -111,7 +111,7 @@
          }
       },
       "/driver/complete":{
-         "delete":{
+         "put":{
             "description":"Driver Complete Booking API",
             "tags":["Driver"],
             "responses":{
@@ -294,6 +294,17 @@
             }
          }
       },
+      "/manager/booking":{
+         "get":{
+            "description":"Booking in Created API",
+            "tags":["Manager"],
+            "responses":{
+               "200":{
+                  "description":"Current Booking"
+               }
+            }
+         }
+      },
       "/manager/process":{
          "get":{
             "description":"Booking in Process API",
@@ -334,6 +345,53 @@
             "responses":{
                "200":{
                   "description":"All Past Booking"
+               }
+            }
+         }
+      },
+      "/manager/booking/{bookingId}":{
+         "get":{
+            "description":"Return Users Bookings API",
+            "tags":["Manager"],
+             "parameters":[
+               {
+                  "type":"string",
+                  "description":"Booking ID",
+                  "name":"bookingId",
+                  "in":"path",
+                  "example":"12"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"User's Booking"
+               }
+            }
+         }
+      },
+      "/manager/booking/{bookingId}/{driverId}":{
+         "put":{
+            "description":"Return Users Bookings API",
+            "tags":["Manager"],
+             "parameters":[
+               {
+                  "type":"number",
+                  "description":"Booking ID",
+                  "name":"bookingId",
+                  "in":"path",
+                  "example":"12"
+               },
+               {
+                  "type":"number",
+                  "description":"Driver ID",
+                  "name":"driverId",
+                  "in":"path",
+                  "example":"12"
+               }
+            ],
+            "responses":{
+               "200":{
+                  "description":"User's Booking"
                }
             }
          }

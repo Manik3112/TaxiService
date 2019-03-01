@@ -4,8 +4,8 @@
 * Author : Manik Rastogi
 */
 
-const managerData = require('../models/manager.js');
-const bookData = require('../models/booking.js');
+const managerData = require('../services/manager.js');
+const bookData = require('../../../services/booking.js');
 
 /* For User Login
 * @Body - userName:{String},userEmail:{String},userPassword:{String}

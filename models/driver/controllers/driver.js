@@ -4,8 +4,8 @@
 * Author : Manik Rastogi
 */
 
-const driverData = require('../models/driver.js');
-const bookData = require('../models/booking.js');
+const driverData = require('../services/driver.js');
+const bookData = require('../../../services/booking.js');
 
 // @Body - userName:{String},userEmail:{String},userPassword:{String}
 let driverLogin = (req, res) => {
@@ -42,9 +42,11 @@ let booking = (req, res) => {
 let complete = (req, res) => {
     bookData.completeRide(req.driverId, res, req.tokenEmail)
 }
+// @ Path - driverId
 let isOnline = (req, res, next) => {
     driverData.isOnline(req.params.driverId, res, next)
 }
+// @Body - email
 let isRegister = (req, res, next) => {
     driverData.isRegister(req.body.email, res, next)
 }

@@ -3,8 +3,8 @@
 * User Function called by Routes
 * Author : Manik Rastogi
 */
-const userData = require('../models/user.js');
-const bookData = require('../models/booking.js');
+const userData = require('../services/user.js');
+const bookData = require('../../../services/booking.js');
 
 // @Body - userName:{String},userEmail:{String},userPassword:{String}
 let userLogin = (req, res) => {
@@ -52,6 +52,7 @@ let showBooking = (req, res) => {
 let bookingHistory = (req, res) => {
 	bookData.userPastBooking(req.tokenUserId,res)
 }
+// @Body - Email
 let isRegister = (req, res, next) => {
     userData.isRegister(req.body.email, res, next)
 }

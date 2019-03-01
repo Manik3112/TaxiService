@@ -1,0 +1,6 @@
+{
+	"keyDriver":"DRIVER",
+	"keyManager":"MANAGER",
+	"keyUser":"USER",
+	"port":"8081"
+}

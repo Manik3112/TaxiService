@@ -3,9 +3,9 @@
 * Author : Manik Rastogi
 */
 
-const { runQuery } = require('./dbcon.js')
-const { managerLogs, driverLogs } = require('./mongodb.js')
-
+const { runQuery } = require('../database/dbcon.js')
+const { managerLogs, driverLogs } = require('../database/mongodb.js')
+let Promise = require("bluebird")
 /* 
 * @body - obj:{Object},userId:{String}
 */
@@ -99,23 +99,34 @@ exports.showDriver = Promise.coroutine(function* (status,res) {
 */
 exports.asignDriver = Promise.coroutine(function* (bookingId, driverId, res, email) {
     try {
+        let rows
+        let rows0
         let sql0 = `UPDATE driver SET status = 2 WHERE driver_id = ${driverId}`
-        let rows0 = yield runQuery(sql0)
+        // let rows0 = yield runQuery(sql0)
         let sql = `UPDATE booking SET status = 1, driver_id = ${driverId} WHERE booking_id = ${bookingId}`
-        let rows = yield runQuery(sql)
+        // let rows = yield runQuery(sql)
+        let x = new Promise((resolve, reject) => {
+            setTimeout(function() {
+                reject('Hello World')
+            }, 3000);
+        })
+        let data = yield Promise.all([runQuery(sql),runQuery(sql0),x])
+        console.log(data)
+            rows0 = data[0]
+            rows = data[1]
         let time = new Date()
         let log = new managerLogs(email, bookingId, driverId, sql, time)
-        if(rows.affectedRows != 0){
+        // if(rows.affectedRows != 0){
             log.addLogs()
             res.status(200).send({
                 "status":"200",
                 "msg":"OK",
                 "data":"Driver is Asigned"
             })
-        }
-        else{
-            throw {"message":"Not Assigned"}
-        }
+        // }
+        // else{
+            // throw {"message":"Not Assigned"}
+        // }
     } catch (err) {
         res.status(400).json({
             "status" : "400",

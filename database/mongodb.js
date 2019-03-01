@@ -31,7 +31,7 @@ class managerLogs{
 				message: "Assinged a Driver",
 				query: this.sql,
 				time_stamp: this.time
-			}
+			}addLogs
 		}
 		conn.collection('Logs').updateOne({'booking_id':logData.booking_id},{$set:{'driver_id':logData.driver_id},$push :{'data':logData.data}},{upsert : true}, (err, result)=>{
 			if(err) return(err.message)

@@ -3,7 +3,9 @@
 * Author : Manik Rastogi
 */
 
-const { runQuery } = require('./dbcon.js')
+const { runQuery } = require('../../../database/dbcon.js')
+let Promise = require("bluebird")
+
 
 /* Add Driver to Database
 * @Obj - name:{String},password:{String}
@@ -48,7 +50,7 @@ exports.getDriver = (email,pass) => {
 */
 exports.driverStatus = Promise.coroutine(function* (status,driverId ,res) {
     try {
-        let sql = `update driver set status = '${status}' where driver_id = '${driverId}'`
+        let sql = `update ydriver set status = '${status}' where driver_id = '${driverId}'`
         yield runQuery(sql)
     } catch (err) {
         console.error(err.message);

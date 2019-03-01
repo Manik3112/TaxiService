@@ -3,7 +3,8 @@
 * Author : Manik Rastogi
 */
 
-const { runQuery } = require('./dbcon.js')
+const { runQuery } = require('../../../database/dbcon.js')
+let Promise = require("bluebird")
 
 /*
 * @Body - email:{String},password:{String}
